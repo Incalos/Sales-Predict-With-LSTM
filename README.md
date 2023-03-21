@@ -1,6 +1,6 @@
 # Sales Predict With LSTM
 
-Use multi-layer LSTM to predict the merchandise sales process
+Use multi-layer LSTMs to predict the sales.
 
 ## Dataset Description
 
