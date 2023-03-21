@@ -1,6 +1,6 @@
 # Sales Predict With LSTM
 
-Use multi-layer LSTMs to predict the sales.
+This project involves using multi-layer LSTMs to predict the sales problem.
 
 ## Dataset Description
 
