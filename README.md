@@ -2,81 +2,81 @@
 
 This project involves using multi-layer LSTMs to predict the sales problem.
 
-## Dataset Description
+## 1. Dataset Description
 
-| **Column** | **Type** |               **Meaning**               |
-|:----------:|:--------:|:---------------------------------------:|
-|     日期     |   date   |                  具体时间                   |
-|    浏览量     |   int    |             用户在电商平台页面上查看的次数             |
-|    访客数     |   int    |              电商平台页面的访问者数量               |
-|   人均浏览量    |  float   |          一天内用户平均在电商平台页面上查看的次数           |
-|   平均停留时间   |  float   |             访问者浏览页面所花费的平均时长             |
-|    跳失率     |  float   | 用户通过相应入口进入，只访问了一个页面就离开的访问次数占该页面总访问次数的比例 |
-|   成交客户数    |   int    |                成功付款的客户数                 |
-|    成交单量    |   int    |                成功付款的订单数量                |
-|    成交金额    |   int    |                成功付款的总金额                 |
-|    客单价     |  float   |              每个用户平均购买商品的金额              |
-|   成交商品件数   |   int    |                成功付款的商品件数                |
-|   下单客户数    |   int    |                已下订单的客户数                 |
-|    下单单量    |   int    |                已下订单的订单数量                |
-|    下单金额    |   int    |                已下订单的总金额                 |
-|   下单商品件数   |   int    |                已下订单的商品件数                |
+| **Column** | **Type** |                                                                          **Meaning**                                                                           |
+|:----------:|:--------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|     日期     |   date   |                                                                     time of data recording                                                                     |
+|    浏览量     |   int    |                                               the number of times users view the page on the e-commerce platform                                               |
+|    访客数     |   int    |                                                        the number of users to e-commerce platform pages                                                        |
+|   人均浏览量    |  float   |                                     the average number of times every user views a page on an e-commerce platform in a day                                     |
+|   平均停留时间   |  float   |                                                          the average time spent by users on the page                                                           |
+|    跳失率     |  float   | the proportion of visits where users enter through the corresponding portal and leave after visiting only one page to the total number of visits to that page  |
+|   成交客户数    |   int    |                                                         the number of customers who successfully paid                                                          |
+|    成交单量    |   int    |                                                             the number of orders successfully paid                                                             |
+|    成交金额    |   int    |                                                            the total amount of successful payments                                                             |
+|    客单价     |  float   |                                                         the average amount of goods purchased per user                                                         |
+|   成交商品件数   |   int    |                                                           the number of goods successfully paid for                                                            |
+|   下单客户数    |   int    |                                                         the number of customers who have placed orders                                                         |
+|    下单单量    |   int    |                                                                  the number of orders placed                                                                   |
+|    下单金额    |   int    |                                                               the total amount of orders placed                                                                |
+|   下单商品件数   |   int    |                                                                  the number of goods ordered                                                                   |
 
-## Prepare configuration file
+## 2. Prepare configuration file
 
-### Dataset parameters
+### (1) Dataset parameters
 
-* **feature_columns** : `csv数据集中用作特征的列，列的编号为0，1，2，···`
-* **label_columns** : `csv数据集中用作标签的列，列的编号为0，1，2，···`
-* **predict_day** : `预测未来多少天`
+* **feature_columns** : `columns used as features in the csv dataset, with columns numbered 0, 1, 2,···`
+* **label_columns** : `columns used as labels in the csv dataset, with columns numbered 0, 1, 2,···`
+* **predict_day** : `predict how many days in the future`
 
-### Network parameters
+### (2) Network parameters
 
-* **input_size** : `输入层尺寸，即用作特征的列的个数`
-* **output_size** :  `输出层尺寸，即用作标签的列的个数`
-* **hidden_size** : `隐藏层尺寸`
-* **lstm_layers** : `LSTM的层数`
-* **dropout_rate** : `Dropout的概率`
-* **time_step** : `LSTM中的time_step,即用前多少天的数据来预测后一天`
+* **input_size** : `the size of input layer, that is, the number of columns used as features`
+* **output_size** :  `the size of output layer, that is, the number of columns used as labels`
+* **hidden_size** : `the size of hidden layer`
+* **lstm_layers** : `the number of layers of lstm`
+* **dropout_rate** : `dropout probability`
+* **time_step** : `how many days before to predict the next day`
 
-### Training parameters
+### (3) Training parameters
 
-* **do_train** : `是否训练模型`
-* **do_predict** : `模型是否用作预测`
-* **add_train** : `是否在已训练好的权重上继续训练`
-* **shuffle_train_data** : `是否随机打乱训练数据`
-* **use_cuda** : `是否使用GPU训练`
-* **train_data_rate** : `训练数据占总体数据比例`
-* **valid_data_rate** : `验证数据占训练数据比例`
-* **batch_size** : `单次传递给模型用以训练的样本个数`
-* **learning_rate** : `学习率`
-* **epoch** : `模型训练次数`
-* **patience** : `训练多少epoch，验证集没提升就停掉`
-* **random_seed** : `随机种子，保证可复现`
-* **do_continue_train** : `每次训练把上一次的final_state作为下一次的init_state`
+* **do_train** : `whether to train the model`
+* **do_predict** : `whether the model is used for prediction`
+* **add_train** : `whether to continue training on the trained weights`
+* **shuffle_train_data** : `whether to randomly disrupt the training data`
+* **use_cuda** : `whether to use GPU training`
+* **train_data_rate** : `the ratio of training data to total data`
+* **valid_data_rate** : `the ratio of validation data to training_data`
+* **batch_size** : `the number of samples passed to the model for training in a epoch`
+* **learning_rate** : `learning rate`
+* **epoch** : `the number of times the model is trained `
+* **patience** : `how many epochs to train and stop if the validation set does not improve `
+* **random_seed** : `random seed, guaranteed reproducible`
+* **do_continue_train** : `take the final state of the previous training as the next init state for each training`
 
-### Training mode
+### (4) Training mode
 
-* **debug_mode** : `调试模式下，是为了跑通代码，追求快`
-* **debug_num** : `仅用debug_num条数据来调试`
+* **debug_mode** : ` In debugging mode, it is to run through the code and pursue speed`
+* **debug_num** : `debugging with only debug_num pieces of data`
 
-### Path Parameters
+### (5) Path Parameters
 
-* **train_data_path** : `数据集保存位置`
-* **model_save_path** : `模型权重保存位置`
-* **figure_save_path** : `预测结果图片保存位置`
-* **log_save_path** : `训练记录保存位置`
-* **do_log_print_to_screen** : `是否将config和训练过程在屏幕显示`
-* **do_log_save_to_file** : `是否将config和训练过程记录到log`
-* **do_figure_save** : `是否保存预测结果图片`
-* **do_train_visualized** : `训练loss可视化，pytorch用visdom`
+* **train_data_path** : `dataset save path`
+* **model_save_path** : `model weights save path`
+* **figure_save_path** : `prediction result save path`
+* **log_save_path** : `training log save path`
+* **do_log_print_to_screen** : `whether to display the log and training process on the screen`
+* **do_log_save_to_file** : `whether to record the config and training process`
+* **do_figure_save** : `whether to save the prediction result image`
+* **do_train_visualized** : `training loss visualization`
 
-## Display of operation results
+## 3. Display of operation results
 
 * Prediction of the number of items ordered
 
-![](picture/img.png)
+    ![](assets/img1.png)
 
 * Prediction of transaction amount
 
-![](picture/img1.png)
+    ![](assets/img2.png)
